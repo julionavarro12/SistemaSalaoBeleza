@@ -1,0 +1,13 @@
+# Pastas de build do .NET
+bin/
+obj/
+
+# Assemblies gerados
+*.dll
+*.exe
+*.pdb
+
+# Arquivos temporários do Visual Studio
+.vs/
+*.user
+*.suo
