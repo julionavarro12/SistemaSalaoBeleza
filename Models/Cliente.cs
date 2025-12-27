@@ -10,7 +10,7 @@ namespace AngelaAraujo.Models
         [Key]
         public int IdCliente { get; set; }
 
-        public string NomeCliente { get; set; } = null!;
-        public string telefone { get; set; }
+public string NomeCliente { get; set; } = null!;
+public string Telefone { get; set; } 
     }
 }

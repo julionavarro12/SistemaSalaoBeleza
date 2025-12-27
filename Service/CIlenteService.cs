@@ -8,82 +8,72 @@ using System.Xml.Schema;
 using System.Reflection.Metadata;
 using System.Reflection.Metadata.Ecma335;
 using System.Security.Cryptography.X509Certificates;
+using AngelaAraujo;
 
 namespace AngelaAraujo.Service
 {
 public class ClienteService : IClienteService
 {
-    
-private readonly ApplicationContext _context;
+    private readonly ApplicationContext _context;
 
-public ClienteService (ApplicationContext context)
-{
-
-_context = context;
-
-
-}
-
-public IEnumerable <Cliente> ObterTodos()
-{
- return _context.Clientes.ToList();
-
-}
-
-public async Task <Cliente> ObterPorId(int id)
+    public ClienteService(ApplicationContext context)
     {
-        var cliente = await _context.Clientes.FindAsync (id);
+        _context = context;
+    }
+
+    public IEnumerable<Cliente> ObterTodos()
+    {
+        return _context.Clientes.ToList();
+    }
+
+    public async Task<Cliente> ObterPorId(int id)
+    {
+        var cliente = await _context.Clientes.FindAsync(id);
         if (cliente == null)
-        {
             throw new Exception("Cliente não encontrado");
-            return cliente;
-        }        
-        
-    } 
 
-
-public async Task<Cliente> Criar(Cliente cliente)
-{
-    if (string.IsNullOrWhiteSpace(cliente.Nome))
-    {
-        throw new Exception("Nome é obrigatório");
+        return cliente;
     }
 
-    var novoCliente = new Cliente
+    public async Task<Cliente> Criar(Cliente cliente)
     {
-        Nome = cliente.Nome,
-        Telefone = cliente.Telefone
-    };
+        if (string.IsNullOrWhiteSpace(cliente.NomeCliente))
+            throw new Exception("Nome é obrigatório");
 
-    _context.Clientes.Add(novoCliente);
-    await _context.SaveChangesAsync();
+        var novoCliente = new Cliente
+        {
+            NomeCliente = cliente.NomeCliente,
+            Telefone = cliente.Telefone
+        };
 
-    return novoCliente;
-    
+        _context.Clientes.Add(novoCliente);
+        await _context.SaveChangesAsync();
+
+        return novoCliente;
     }
 
- public async Task<Cliente> Atualizar(int id, Cliente clienteAtualizado)
+    public async Task<Cliente> Atualizar(int id, Cliente clienteAtualizado)
     {
         var cliente = await _context.Clientes.FindAsync(id);
         if (cliente == null) throw new Exception("Cliente não encontrado");
 
-        cliente.Nome = clienteAtualizado.Nome;
+        cliente.NomeCliente = clienteAtualizado.NomeCliente;
         cliente.Telefone = clienteAtualizado.Telefone;
 
         await _context.SaveChangesAsync();
         return cliente;
     }
- public async  Task <Cliente>Deletar (int id)
-        {
-            var cliente = await _context.Cliente.FindAsync(id);
-            if (cliente == null)
-            throw new Exception ("Cliente não encontrado");
 
-            _context.cliente.Remove(Cliente);
-            await _context.SaveChangesAsync();
+    public async Task<Cliente> Deletar(int id)
+    {
+        var cliente = await _context.Clientes.FindAsync(id);
+        if (cliente == null)
+            throw new Exception("Cliente não encontrado");
 
-        }
+        _context.Clientes.Remove(cliente);
+        await _context.SaveChangesAsync();
 
-
+        return cliente;
+    }
 }
 }
