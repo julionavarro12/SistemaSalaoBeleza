@@ -13,11 +13,11 @@ namespace AngelaAraujo.Models
     public class Usuario
     {
         [Key]
-        public int IdUsuario { get; set; }  // agora é propriedade
+        public int IdUsuario { get; set; } 
 
-        public string Nome { get; set; } = string.Empty;  // inicializado
+        public string Nome { get; set; } = string.Empty;  
         public string Email { get; set; } = string.Empty;
-        public string Password { get; set; } = string.Empty; // typo corrigido
+        public string Password { get; set; } = string.Empty; 
 
         public RoleUsuario Role { get; set; } = RoleUsuario.Profissional;
         public bool Ativo { get; set; } = true;

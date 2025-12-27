@@ -29,10 +29,10 @@ namespace AngelaAraujo
                 .HasForeignKey(p => p.IdAgendamento);
 
             modelBuilder.Entity<Agendamento>()
-            .HasMany(a => a.Servicos)             // plural
-            .WithMany(s => s.Agendamentos)        // plural no Servico
+            .HasMany(a => a.Servicos)             
+            .WithMany(s => s.Agendamentos)        
             .UsingEntity<Dictionary<string, object>>(
-                "AgendamentoServico",             // tabela de junção
+                "AgendamentoServico",             
                 j => j.HasOne<Servico>().WithMany().HasForeignKey("ServicoId"),
                 j => j.HasOne<Agendamento>().WithMany().HasForeignKey("AgendamentoId")
             );
